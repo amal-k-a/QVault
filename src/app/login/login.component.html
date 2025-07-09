@@ -1,0 +1,82 @@
+<!-- login.component.html -->
+<div
+  class="min-h-screen flex items-center justify-center bg-cover bg-center relative overflow-hidden"
+  style="background-image: url('assets/qvaultbg.png');"
+>
+ 
+
+  <!-- Login Box -->
+  <div class="max-w-md w-full bg-[#0a0f2c]/70 backdrop-blur-lg p-10 rounded-xl shadow-2xl border border-blue-100/30 relative z-10">
+
+     <div class="flex justify-center mb-4">
+    <img
+      src="assets/ChatGPT Image Jul 9, 2025, 12_33_49 PM (1).png"
+      alt="Qvault Logo"
+      class="h-30"
+    />
+  </div>
+    <p class="text-sm text-center mb-6  text-white">Login with your college email</p>
+
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div class="mb-4">
+  <label class="block text-sm mb-1 text-white" for="email">Email</label>
+  <input
+    type="email"
+    id="email"
+    name="email"
+    [(ngModel)]="email"
+    #emailRef="ngModel"
+    required
+    pattern="^[a-zA-Z0-9._%+-]+@kristujayanti\.com$"
+    class="w-full p-3 rounded-xl bg-blue-900/20 border border-blue-100/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none backdrop-blur-sm"
+    placeholder="Enter your Email"
+  />
+  <div class="text-red-400 text-sm mt-1" *ngIf="emailRef.invalid && emailRef.touched">
+    <div *ngIf="emailRef.errors?.['required']">Email is required.</div>
+    <div *ngIf="emailRef.errors?.['pattern']">Invalid email domain</div>
+  </div>
+</div>
+
+
+     <div class="mb-4">
+  <label class="block text-sm mb-1 text-white" for="password">Password</label>
+  <input
+    type="password"
+    id="password"
+    name="password"
+    [(ngModel)]="password"
+    #passwordRef="ngModel"
+    required
+    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$"
+    class="w-full p-3 rounded-xl bg-blue-900/20 border border-blue-100/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none backdrop-blur-sm"
+    placeholder="Enter your password"
+  />
+  <div class="text-red-400 text-sm mt-1" *ngIf="passwordRef.invalid && passwordRef.touched">
+    <div *ngIf="passwordRef.errors?.['required']">Password is required.</div>
+    <div *ngIf="passwordRef.errors?.['pattern']">
+     Invalid password
+    </div>
+  </div>
+</div>
+
+
+      <div class="flex justify-between items-center mb-6">
+        <a href="/forgot-password" class="text-sm text-white hover:underline">Forgot Password?</a>
+         
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-green-500 hover:bg-green-600 transition-colors text-white py-2 rounded"
+      >
+        Sign In
+      </button>
+      <div class="mt-4 text-center">
+  <a href="/create-account" class="text-sm text-white hover:underline">
+    Don't have an account? <span class="text-green-300">Create one</span>
+  </a>
+</div>
+
+    </form>
+  </div>
+</div> 
