@@ -9,12 +9,14 @@ import { StudentComponent } from './student/student.component';
 
 import { QuestionPaperComponent } from './student/questionpaper/questionpaper.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     StudentComponent,
 
     QuestionPaperComponent
+    
   ],
   imports: [
     BrowserModule,

@@ -1,18 +1,138 @@
-<div class="min-h-screen p-8 bg-blue-100">
-  <h2 class="text-3xl font-bold mb-6 text-gray-800">
-    {{ courseName }} - Question Papers
-  </h2>
+<!-- Navbar (unchanged) -->
+<nav class="fixed top-0 left-0 right-0 h-20 z-20 flex items-center justify-between p-10
+       bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70
+       backdrop-blur-md border-b border-white/10 shadow-md shadow-[#0b1e34]/30">
+    <!-- Left: Logo -->
+    <div class="flex flex-wrap items-center justify-between gap-2">
+        <img src="assets\Images\qvault.png" class="h-32" alt="KJC Logo" />
+    </div>
+    <!-- Center: Image -->
+    <img src="assets\Images\kju.png" class="h-14" alt="Kristu Jayanti Logo" />
+    <!-- Right: Email & Avatar -->
+    <div class="flex items-center space-x-3">
+        <span class="text-white">23bcna10&#64;gmail.com</span>
+        <div class="w-8 h-8 rounded-full bg-green-700 flex items-center justify-center text-white font-semibold">
+            A
+        </div>
+    </div>
+</nav>
 
-  <div *ngFor="let subject of subjectWisePapers" class="mb-8">
-    <h3 class="text-xl font-semibold mb-3 text-blue-900">{{ subject.subject }}</h3>
-    
-    <ul class="space-y-2">
-      <li *ngFor="let paper of subject.papers" class="flex items-center justify-between bg-white p-4 rounded shadow">
-        <span class="text-gray-700">{{ paper }}</span>
-        <button class="bg-blue-700 text-white px-4 py-1 rounded hover:bg-blue-800">
-          Download
-        </button>
-      </li>
-    </ul>
-  </div>
+<div class="flex pt-20 h-screen overflow-hidden absolute">
+    <!-- Sidebar -->
+    <div class="group bg-[#1e293b] text-white h-full w-16 hover:w-64 fixed transition-all duration-300 z-10">
+        <div class="h-full flex flex-col justify-between py-10">
+            <nav class="p-2 space-y-1">
+                <a [routerLink]="['/student']" class="flex items-center p-3 rounded-lg hover:bg-blue-600">
+                    <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <span
+                        class="ml-4 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Home</span>
+                </a>
+                <a href="#" class="flex items-center p-3 rounded-lg hover:bg-blue-600">
+                    <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                    </svg>
+                    <span
+                        class="ml-4 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Bookmarks</span>
+                </a>
+                <a href="#" class="flex items-center p-3 rounded-lg hover:bg-blue-600">
+                    <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span class="ml-4 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Contact
+                        Us</span>
+                </a>
+
+            </nav>
+            <div class="py-14">
+
+                <a href="#" class="flex items-center p-3 rounded-lg hover:bg-blue-600">
+                    <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span class="ml-4 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">About
+                        Us</span>
+                </a>
+                <a href="#" class="flex items-center p-3 rounded-lg hover:bg-blue-600">
+                    <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <span
+                        class="ml-4 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="min-h-screen bg-[#1e293b] text-white p-24">
+    <!-- Header Section -->
+    <div class="flex justify-between items-center mb-4">
+        <div class="text-sm text-gray-300">
+            Qvault &gt; <span class="font-medium text-white">{{ courseName }}</span>
+        </div>
+        <div class="flex gap-4 items-center">
+            <input [(ngModel)]="searchTerm" type="text" placeholder="Search Course"
+                class="p-2 px-4 rounded bg-gray-100 text-black placeholder:text-gray-500 focus:outline-none" />
+            <button class="text-white flex items-center gap-1" (click)="toggleFilters()">
+                <span>Filter by</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path
+                        d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L14 13.414V17a1 1 0 01-.293.707l-2 2A1 1 0 0110 19v-5.586L3.293 6.707A1 1 0 013 6V4z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div *ngIf="showFilters" class="bg-gray-200 p-4 rounded mb-6 text-black">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+                <label class="block text-sm mb-1">Subject:</label>
+                <select [(ngModel)]="filters.subject" class="w-full p-2 rounded">
+                    <option value="">All</option>
+                    <option *ngFor="let s of subjects" [value]="s">{{ s }}</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm mb-1">Year:</label>
+                <select [(ngModel)]="filters.year" class="w-full p-2 rounded">
+                    <option value="">All</option>
+                    <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm mb-1">Exam Type:</label>
+                <select [(ngModel)]="filters.type" class="w-full p-2 rounded">
+                    <option value="">All</option>
+                    <option *ngFor="let t of types" [value]="t">{{ t }}</option>
+                </select>
+            </div>
+            <div class="flex items-end gap-2">
+                <button class="bg-blue-800 text-white px-4 py-2 rounded" (click)="applyFilters()">Apply</button>
+                <button class="bg-gray-500 text-white px-4 py-2 rounded" (click)="resetFilters()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paper Grid -->
+    <div class="bg-[#374151] p-6 rounded-lg">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div *ngFor="let paper of filteredPapers"
+                class="bg-white text-black rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+                <img [src]="paper.imageUrl" alt="Paper Image" class="h-56 w-full object-cover rounded-t-lg" />
+                <div class="p-4 bg-gray-200 text-center rounded-b-lg">
+                    <p class="font-semibold text-sm">{{ paper.title }}</p>
+                    <p class="text-xs">{{ paper.year }}</p>
+                    <p class="text-xs font-mono">{{ paper.code }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
