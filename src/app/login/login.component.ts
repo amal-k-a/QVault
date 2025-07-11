@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 
 @Component({
@@ -8,32 +9,79 @@ import { UserService } from '../user.service';
 export class LoginComponent {
   email = '';
   password = '';
+  showPassword = false;
 
-  constructor(private userService: UserService) {}
+  // ✅ Toast message
+  message = '';
+  messageType: 'success' | 'error' | '' = '';
+  showMessage = false;
+
+  // ✅ Spinner flag
+  loading = false;
+
+  constructor(private userService: UserService, private router: Router) {}
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  displayMessage(type: 'success' | 'error', text: string): void {
+    this.messageType = type;
+    this.message = text;
+    this.showMessage = true;
+
+    setTimeout(() => {
+      this.showMessage = false;
+    }, 4000);
+  }
 
   onSubmit(): void {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@kristujayanti\.com$/;
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/;
 
     if (!emailPattern.test(this.email)) {
-      alert('Only @kristujayanti.com emails are allowed');
+      this.displayMessage('error', 'Only @kristujayanti.com emails are allowed');
       return;
     }
 
     if (!passwordPattern.test(this.password)) {
-      alert(
-        'Password must be at least 6 characters and include uppercase, lowercase, and special characters'
+      this.displayMessage(
+        'error',
+        'Password must include uppercase, lowercase, special character and be at least 6 characters.'
       );
       return;
     }
 
+    // ✅ Show spinner
+    this.loading = true;
+
     this.userService.login(this.email, this.password).subscribe({
-      next: (response: string) => {
-        alert(response); // ✅ Will show: "Login was successfull\nstudent dashboard"
-        console.log('Login success:', response);
+      next: (response: any) => {
+        // ✅ Hide spinner
+        this.loading = false;
+
+        if (response.message === 'successfull') {
+          sessionStorage.setItem('email', this.email);
+
+          setTimeout(() => {
+            if (response.role === 'student') {
+              this.router.navigate(['/student-dashboard']);
+            } else if (response.role === 'teacher') {
+              this.router.navigate(['/teacher-dashboard']);
+            }
+          }, 1500);
+        } else {
+          if (response.message === 'failed') {
+            this.displayMessage('error', 'Invalid Email');
+          } else if (response.message === 'password failed') {
+            this.displayMessage('error', 'Incorrect Password');
+          }
+        }
       },
       error: (err: any) => {
-        alert('Login failed');
+        // ✅ Hide spinner on error
+        this.loading = false;
+        this.displayMessage('error', 'Login failed. Please try again.');
         console.error('Login error:', err);
       }
     });
