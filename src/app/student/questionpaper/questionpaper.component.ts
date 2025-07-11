@@ -42,17 +42,17 @@ export class QuestionPaperComponent implements OnInit {
           return;
         }
 
-        this.allPapers = data.map((paper: any) => ({
-          subname: paper[0],        // course
-          courseid: paper[1],       // courseid
-          department: paper[2],     // department
-          coursename: paper[3],     // program
-          term: paper[4],           // term
-          year: paper[5],           // year
-          files: paper[6]           // list of binary PDFs
+        this.allPapers = data.map(paper => ({
+          subname: paper.subname,
+          courseid: paper.courseid,
+          department: paper.department,
+          coursename: paper.coursename,
+          term: paper.term,
+          year: paper.year,
+          sem: paper.sem,
+          files: paper.files
         }));
 
-        // Extract filters
         this.subjects = [...new Set(this.allPapers.map(p => p.subname))];
         this.years = [...new Set(this.allPapers.map(p => p.year))].sort((a, b) => +b - +a);
 
@@ -61,16 +61,7 @@ export class QuestionPaperComponent implements OnInit {
         this.isLoading = false;
         console.error('Failed to load papers', error);
       });
-
-      
     });
-
-    this.api.getQuestionPapers(this.courseName).subscribe(data => {
-  this.isLoading = false;
-  console.log('Raw API data:', data); // ✅ LOG this
-
-});
-
   }
 
   toggleFilters(): void {
@@ -80,7 +71,7 @@ export class QuestionPaperComponent implements OnInit {
   applyFilters(): void {
     this.filteredPapers = this.allPapers
       .map(paper => ({
-        title: `${paper.subname} - ${paper.term}`,
+        title: `${paper.subname} - ${paper.term} Sem ${paper.sem}`,
         year: paper.year,
         code: paper.courseid,
         subject: paper.subname,
