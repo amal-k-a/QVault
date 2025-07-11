@@ -1,14 +1,14 @@
-<!-- Navbar (unchanged) -->
+<!-- Navbar -->
 <nav class="fixed top-0 left-0 right-0 h-20 z-20 flex items-center justify-between p-10
-       bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70
-       backdrop-blur-md border-b border-white/10 shadow-md shadow-[#0b1e34]/30">
-    <!-- Left: Logo -->
+     bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70
+     backdrop-blur-md border-b border-white/10 shadow-md shadow-[#0b1e34]/30">
+    <!-- Left Logo -->
     <div class="flex flex-wrap items-center justify-between gap-2">
-        <img src="assets\Images\qvault.png" class="h-32" alt="KJC Logo" />
+        <img src="assets/Images/qvault.png" class="h-32" alt="KJC Logo" />
     </div>
-    <!-- Center: Image -->
-    <img src="assets\Images\kju.png" class="h-14" alt="Kristu Jayanti Logo" />
-    <!-- Right: Email & Avatar -->
+    <!-- Center Logo -->
+    <img src="assets/Images/kju.png" class="h-14" alt="Kristu Jayanti Logo" />
+    <!-- Right User Info -->
     <div class="flex items-center space-x-3">
         <span class="text-white">23bcna10&#64;gmail.com</span>
         <div class="w-8 h-8 rounded-full bg-green-700 flex items-center justify-center text-white font-semibold">
@@ -17,6 +17,7 @@
     </div>
 </nav>
 
+<!-- Sidebar -->
 <div class="flex pt-20 h-screen overflow-hidden absolute">
     <!-- Sidebar -->
     <div class="group bg-[#1e293b] text-white h-full w-16 hover:w-64 fixed transition-all duration-300 z-10">
@@ -70,16 +71,13 @@
         </div>
     </div>
 </div>
-
-<div class="min-h-screen bg-white text-[#1e293b] p-24">
-    <!-- Header Section -->
+<!-- Main Content -->
+<div class="min-h-screen bg-white text-[#1e293b] p-24 ml-16">
+    <!-- Header -->
     <div class="flex justify-between items-center mb-4">
-        <div class="text-sm text-[#1e293b]">
-            Home &gt; <span class="font-medium text-[#1e293b]">{{ courseName }}</span>
-        </div>
+        <div class="text-sm">Home &gt; <span class="font-medium">{{ courseName }}</span></div>
         <div class="flex gap-4 items-center">
-            
-            <button class="text-gray-800 flex items-center gap-1 hover:shadow-sm hover:bg-gray-200 rounded-lg px-4 py-2 cursor-pointer font-semibold" (click)="toggleFilters()">
+            <button class="text-white flex items-center gap-1" (click)="toggleFilters()">
                 <span>Filter by</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path
@@ -125,7 +123,9 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <div *ngFor="let paper of filteredPapers"
                 class="bg-white text-black rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-                <img [src]="paper.imageUrl" alt="Paper Image" class="h-56 w-full object-cover rounded-t-lg" />
+                <!-- Display first file as image or fallback -->
+                <img [src]="paper.imageUrl || 'assets/Images/samplepaper.png'" alt="Paper"
+                    class="h-56 w-full object-cover rounded-t-lg" />
                 <div class="p-4 bg-gray-200 text-center rounded-b-lg">
                     <p class="font-semibold text-sm">{{ paper.title }}</p>
                     <p class="text-xs">{{ paper.year }}</p>

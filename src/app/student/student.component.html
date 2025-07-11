@@ -1,6 +1,6 @@
 <!-- Student Component HTML -->
 
-<body class="bg-white font-sans">
+<div class="bg-white font-sans">
     <!-- Navbar (unchanged) -->
     <nav class="fixed top-0 left-0 right-0 h-20 z-20 flex items-center justify-between p-10
        bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70
@@ -149,7 +149,7 @@
                 <span class="text-blue-950 font-semibold">Department of {{department}}[UG]</span>
                 <div class="py-4 grid grid-cols-3 gap-4">
                     <a *ngFor="let course of getCoursesByDepartment(department)"
-                        [routerLink]="['/student/questionpaper']"
+                        [routerLink]="['/questionpaper']"
                         [queryParams]="{ course: course.name, specialization: course.specialization }"
                         class="w-[320px] h-[164px] bg-[#eaefef] border border-gray-200 rounded-lg shadow-sm flex hover:shadow-lg cursor-pointer no-underline">
                         <div class="flex-shrink-0 flex items-center h-full pl-4">
@@ -164,4 +164,6 @@
             </div>
         </ng-container>
     </div>
-</body>
+</div>
+
+

@@ -9,7 +9,7 @@ import { QuestionPaperComponent } from './student/questionpaper/questionpaper.co
 const routes: Routes = [
   { path: '', redirectTo: 'student', pathMatch: 'full' },
   { path: 'student', component: StudentComponent },
-  { path: 'student/questionpaper', component: QuestionPaperComponent }
+  { path: 'questionpaper', component: QuestionPaperComponent }
 ];
 
 

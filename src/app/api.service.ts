@@ -1,4 +1,4 @@
-// api.service.ts
+// src/app/services/api.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,16 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
+  private baseUrl = 'http://localhost:8080/courseclick'; // Replace with your actual backend URL
 
-  private baseUrl = 'https://your-backend.com/api'; // your API base URL
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getQuestionPapers(course: string, year?: number, term?: string): Observable<any> {
-    let params = new HttpParams().set('course', course);
-    if (year) params = params.set('year', year.toString());
-    if (term) params = params.set('term', term);
-
-    return this.http.get(`${this.baseUrl}/questionpapers`, { params });
+  getQuestionPapers(program: string): Observable<any[]> {
+    const params = new HttpParams().set('program', program);
+    return this.http.get<any[]>(`${this.baseUrl}/searchfilterpage`, { params });
   }
 }
