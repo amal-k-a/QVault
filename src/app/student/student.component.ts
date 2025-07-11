@@ -91,6 +91,6 @@ export class StudentComponent {
   }
 
   viewQuestionPapers(course: Course): void {
-    this.router.navigate(['/question-papers', course.id]);
+    this.router.navigate(['/questionpaper', course.id]);
   }
 }
