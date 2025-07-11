@@ -1,22 +1,32 @@
-// src/app/app.module.ts
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; // ✅ Import this
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component'; // your login component
+
+import { StudentComponent } from './student/student.component';
+
+import { QuestionPaperComponent } from './student/questionpaper/questionpaper.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    
-    // other components
+
+    StudentComponent,
+    QuestionPaperComponent
+
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
-    HttpClientModule  // ✅ Add this
+     HttpClientModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Qvault
+=======
+# Project
+>>>>>>> e94eccfce035febc5957aaf3de1aa3b7b027adfe
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.
 
