@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:8080/courseclick'; // Replace with your actual backend URL
+  private baseUrl = 'http://172.21.11.107:8080/courseclick'; // Replace with your actual backend URL
 
   constructor(private http: HttpClient) {}
 

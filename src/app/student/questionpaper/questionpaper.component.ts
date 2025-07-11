@@ -27,7 +27,7 @@ export class QuestionPaperComponent implements OnInit {
   allPapers: any[] = [];
   filteredPapers: any[] = [];
 
-  constructor(private route: ActivatedRoute, private api: ApiService) {}
+  constructor(private route: ActivatedRoute, private api: ApiService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -62,14 +62,14 @@ export class QuestionPaperComponent implements OnInit {
         console.error('Failed to load papers', error);
       });
 
-      
+
     });
 
     this.api.getQuestionPapers(this.courseName).subscribe(data => {
-  this.isLoading = false;
-  console.log('Raw API data:', data); // ✅ LOG this
+      this.isLoading = false;
+      console.log('Raw API data:', data); // ✅ LOG this
 
-});
+    });
 
   }
 
@@ -110,4 +110,5 @@ export class QuestionPaperComponent implements OnInit {
     }
     return 'data:application/pdf;base64,' + btoa(binaryString);
   }
+
 }
