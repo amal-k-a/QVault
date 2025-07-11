@@ -38,17 +38,21 @@ export class StudentComponent {
 
   filteredCourses: Course[] = this.allCourses;
   departments: string[] = ['All Departments', 'Computer Science', 'Life Science', 'Forensic Science'];
-  courses: {value: string, display: string}[] = [];
+  courses: { value: string, display: string }[] = [];
   selectedDepartment: string = 'All Departments';
   selectedCourse: string = 'All Courses';
 
+  // ✅ User email from sessionStorage
+  userEmail: string = '';
+
   constructor(private router: Router) {
+    this.userEmail = sessionStorage.getItem('email') || '';
     this.updateCourseOptions();
   }
 
   updateCourseOptions(): void {
     if (this.selectedDepartment === 'All Departments') {
-      this.courses = [{value: 'All Courses', display: 'All Courses'}];
+      this.courses = [{ value: 'All Courses', display: 'All Courses' }];
     } else {
       const deptCourses = this.allCourses
         .filter(course => course.department === this.selectedDepartment)
@@ -58,7 +62,7 @@ export class StudentComponent {
         }));
       
       this.courses = [
-        {value: 'All Courses', display: 'All Courses'},
+        { value: 'All Courses', display: 'All Courses' },
         ...deptCourses
       ];
     }
@@ -68,9 +72,9 @@ export class StudentComponent {
   applyFilters(): void {
     this.filteredCourses = this.allCourses.filter(course => {
       const departmentMatch = this.selectedDepartment === 'All Departments' || 
-                            course.department === this.selectedDepartment;
+                              course.department === this.selectedDepartment;
       const courseMatch = this.selectedCourse === 'All Courses' || 
-                         course.displayName === this.selectedCourse;
+                          course.displayName === this.selectedCourse;
       return departmentMatch && courseMatch;
     });
   }
