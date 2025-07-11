@@ -71,15 +71,14 @@
     </div>
 </div>
 
-<div class="min-h-screen bg-[#1e293b] text-white p-24">
+<div class="min-h-screen bg-white text-[#1e293b] p-24">
     <!-- Header Section -->
     <div class="flex justify-between items-center mb-4">
-        <div class="text-sm text-gray-300">
-            Qvault &gt; <span class="font-medium text-white">{{ courseName }}</span>
+        <div class="text-sm text-[#1e293b]">
+            Home &gt; <span class="font-medium text-[#1e293b]">{{ courseName }}</span>
         </div>
         <div class="flex gap-4 items-center">
-            <input [(ngModel)]="searchTerm" type="text" placeholder="Search Course"
-                class="p-2 px-4 rounded bg-gray-100 text-black placeholder:text-gray-500 focus:outline-none" />
+            
             <button class="text-white flex items-center gap-1" (click)="toggleFilters()">
                 <span>Filter by</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
