@@ -16,6 +16,7 @@ interface Course {
   styleUrls: ['./student.component.css']
 })
 export class StudentComponent {
+  showLogoutModal = false;
   allCourses: Course[] = [
     // Computer Science Department
     { id: 1, department: 'Computer Science', name: 'BCA', specialization: 'General', displayName: 'BCA General', icon: 'https://cdn-icons-png.flaticon.com/512/11532/11532661.png' },
@@ -100,5 +101,15 @@ export class StudentComponent {
   ngOnInit(): void {
     // ✅ Get email from sessionStorage
     this.email = sessionStorage.getItem('email') || '';
+  }
+
+  
+  confirmLogout(): void {
+    sessionStorage.clear(); // or localStorage.clear() if used
+    this.router.navigate(['/login']);
+  }
+
+  cancelLogout(): void {
+    this.showLogoutModal = false;
   }
 }

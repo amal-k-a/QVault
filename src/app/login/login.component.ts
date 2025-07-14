@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 
@@ -6,7 +6,8 @@ import { UserService } from '../user.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
   email = '';
   password = '';
   showPassword = false;
@@ -20,6 +21,13 @@ export class LoginComponent {
   loading = false;
 
   constructor(private userService: UserService, private router: Router) {}
+
+  ngOnInit(): void {
+  this.email = '';
+  this.password = '';
+  sessionStorage.clear(); // optional: ensure no leftover data
+}
+
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
