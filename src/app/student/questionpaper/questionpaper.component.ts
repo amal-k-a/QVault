@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 
 @Component({
@@ -14,6 +14,8 @@ export class QuestionPaperComponent implements OnInit {
   searchTerm = '';
   isLoading = true;
 
+  email: string = '';
+
   filters = {
     subject: '',
     year: '',
@@ -27,13 +29,11 @@ export class QuestionPaperComponent implements OnInit {
   allPapers: any[] = [];
   filteredPapers: any[] = [];
 
-  constructor(private route: ActivatedRoute, private api: ApiService) { }
-   email: string = '';
+  constructor(private route: ActivatedRoute, private api: ApiService, private router: Router) {}
 
   ngOnInit(): void {
-   this.email = sessionStorage.getItem('email') || '';
-  
-  
+    this.email = sessionStorage.getItem('email') || '';
+
     this.route.queryParams.subscribe(params => {
       this.courseName = params['course'] || 'Selected Course';
       this.specialization = params['specialization'] || '';
@@ -47,63 +47,51 @@ export class QuestionPaperComponent implements OnInit {
         }
 
         this.allPapers = data.map((paper: any) => ({
-          subname: paper.course,          // ✅ course
-          courseid: paper.courseid,       // ✅ courseid
+          id: paper.id,
+          subname: paper.course,
+          courseid: paper.courseid,
           department: paper.department,
-          coursename: paper.program,      // ✅ program
+          coursename: paper.program,
           term: paper.term,
           year: paper.year,
-          fileId: paper.pdfUrl            // ✅ single fileId string
+          fileId: paper.pdfUrl || paper.id // fallback
         }));
-        
 
-        // Extract filters
         this.subjects = [...new Set(this.allPapers.map(p => p.subname))];
         this.years = [...new Set(this.allPapers.map(p => p.year))].sort((a, b) => +b - +a);
 
         this.applyFilters();
+        console.log('Raw API data:', data);
       }, error => {
         this.isLoading = false;
         console.error('Failed to load papers', error);
       });
-
-
     });
-
-    this.api.getQuestionPapers(this.courseName).subscribe(data => {
-      this.isLoading = false;
-      console.log('Raw API data:', data); // ✅ LOG this
-
-    });
-
   }
 
   toggleFilters(): void {
     this.showFilters = !this.showFilters;
   }
-applyFilters(): void {
-  this.filteredPapers = this.allPapers
-    .filter(paper =>
-      (!this.filters.subject || paper.subname === this.filters.subject) &&
-      (!this.filters.year || paper.year === this.filters.year) &&
-      (!this.filters.type || paper.term === this.filters.type)
-    )
-    .map(paper => {
-      const fileId = paper.id || ''; // ← this is the fix
-      return {
+
+  applyFilters(): void {
+    this.filteredPapers = this.allPapers
+      .filter(paper =>
+        (!this.filters.subject || paper.subname === this.filters.subject) &&
+        (!this.filters.year || paper.year === this.filters.year) &&
+        (!this.filters.type || paper.term === this.filters.type)
+      )
+      .map(paper => ({
         title: `${paper.subname} - ${paper.term}`,
         year: paper.year,
         code: paper.courseid,
         subject: paper.subname,
         type: paper.term,
         imageUrl: 'assets/10007105.png',
-        fileId: paper.fileId
-      };
-    });
+        fileId: paper.fileId || paper.id || ''
+      }));
 
-  console.log('Filtered Papers:', this.filteredPapers);
-}
-
+    console.log('Filtered Papers:', this.filteredPapers);
+  }
 
   resetFilters(): void {
     this.filters = { subject: '', year: '', type: '' };
@@ -122,15 +110,19 @@ applyFilters(): void {
   }
 
   openPDF(fileId: string): void {
-  console.log("Opening PDF with fileId:", fileId);
-  if (!fileId) {
-    alert("No PDF available.");
-    return;
+    console.log("Opening PDF with fileId:", fileId);
+    if (!fileId) {
+      alert("No PDF available.");
+      return;
+    }
+
+    const pdfUrl = `http://172.21.11.107:8080/pdf?id=${fileId}`;
+    window.open(pdfUrl, '_blank');
   }
 
-  const pdfUrl = `http://172.21.11.107:8080/pdf?id=${fileId}`;
-  window.open(pdfUrl, '_blank');
-}
-
-
+  logout(): void {
+    sessionStorage.removeItem('email');
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
 }
