@@ -1,0 +1,213 @@
+<!-- ========== NAVBAR ========== -->
+<nav class="fixed inset-x-0 top-0 z-20 h-20 flex items-center justify-between px-6
+    bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70
+    backdrop-blur-lg border-b border-white/10 shadow-md shadow-[#0b1e34]/40">
+
+  <div class="flex items-center gap-2">
+    <img src="assets/Images/qvault.png" class="h-40 md:h-40" alt="Qvault" />
+  </div>
+
+  <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <img src="assets/Images/kju.png" class="h-12 md:h-16" alt="Kristu Jayanti University" />
+  </div>
+
+  <div class="flex items-center space-x-3">
+    <!-- Email -->
+    <span class="text-white">{{ email }}</span>
+
+    <!-- Profile Image -->
+    <img 
+      src="assets/image.png" 
+      alt="User Profile" 
+      class="w-8 h-8 rounded-full object-cover"
+    />
+
+    <!-- Logout Button with Tooltip -->
+    <div class="relative group w-6 h-6 cursor-pointer" (click)="openExitModal()">
+      <!-- Logout Icon -->
+      <svg 
+        class="w-full h-full text-white" 
+        viewBox="0 0 20 20" 
+        fill="currentColor"
+      >
+        <path 
+          fill-rule="evenodd"
+          d="M3 4a1 1 0 011-1h8a1 1 0 110 2H5v10h7a1 1 0 110 2H4a1 1 0 01-1-1V4zm12.293 5.293a1 1 0 010 1.414L13.414 12l1.879 1.879a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" 
+          clip-rule="evenodd"
+        />
+      </svg>
+
+      <!-- Tooltip -->
+      <span
+        class="absolute bottom-full mb-1 left-1/2 transform -translate-x-1/2
+               hidden group-hover:flex items-center justify-center
+               bg-gray-800 text-white text-xs rounded px-2 py-1 whitespace-nowrap z-10">
+        Logout
+      </span>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-20 bg-white min-h-screen">
+
+  <!-- HERO BANNER -->
+  <section class="relative w-full">
+    <img src="assets/Images/clg_photo (2).jpg" class="w-full h-[384px] object-cover" alt="Campus banner" />
+
+    <div class="absolute inset-x-0 bottom-0 bg-black/20 backdrop-blur-sm px-6 py-3 text-[15px] leading-relaxed font text-white">
+      This platform is your digital access point to previous‑year question papers of
+      <span class="font-semibold">Kristu Jayanti University</span>. Easily browse and download papers from anywhere.
+      Updated regularly to match the latest curriculum—it’s a reliable resource to help you prepare effectively and stay ahead.
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <section
+    [ngClass]="{
+      'bg-white': !showFilters,
+      'bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70
+       backdrop-blur-lg border-b border-white/10 shadow-md shadow-[#0b1e34]/40': showFilters
+    }"
+    class="mx-auto mt-6 w-[1280px] max-w-full rounded-md px-4 py-4
+           flex flex-wrap gap-4 items-center justify-between transition-all duration-300">
+
+    <div class="flex gap-3 items-center">
+      <!-- ADD BUTTON -->
+      <button
+        (click)="onAddClick()"
+        class="flex items-center gap-1 rounded-full
+               bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70
+               backdrop-blur-lg border border-white/10 shadow-md shadow-[#0b1e34]/40
+               px-4 py-[6px] text-sm font-medium text-white hover:opacity-90 active:opacity-95 transition">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 4a1 1 0 011 1v4h4a1 1 0 110 2h-4v4a1 1 0 11-2 0v-4H5a1 1 0 110-2h4V5a1 1 0 011-1z" />
+        </svg>
+        Add
+      </button>
+      <input type="file" #fileInput (change)="handleFileUpload($event)" style="display:none">
+
+      <!-- FILTER TOGGLE BUTTON -->
+      <button
+        (click)="toggleFilters()"
+        class="flex items-center gap-1 rounded-full
+               bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70
+               backdrop-blur-lg border border-white/10 shadow-md shadow-[#0b1e34]/40
+               px-4 py-[6px] text-sm font-medium text-white hover:opacity-90 active:opacity-95 transition">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd"
+            d="M3 4a1 1 0 011-1h16a1 1 0 01.8 1.6l-5.73 7.64A2 2 0 0014 13.73v5.54a1 1 0 01-.553.894l-4 2A1 1 0 018 22V13.73a2 2 0 00-.47-1.26L1.8 4.6A1 1 0 013 4z"
+            clip-rule="evenodd" />
+        </svg>
+        Filter
+      </button>
+    </div>
+
+    <div *ngIf="showFilters" class="flex flex-wrap gap-4 mt-4 w-full">
+      <select class="flex-1 min-w-[120px] px-3 py-2 border rounded-md text-sm">
+        <option disabled selected>Course</option>
+        <option>BCA</option>
+        <option>B.Sc</option>
+      </select>
+      <select class="flex-1 min-w-[120px] px-3 py-2 border rounded-md text-sm">
+        <option disabled selected>Subject</option>
+        <option>DBMS</option>
+        <option>OS</option>
+      </select>
+      <select class="flex-1 min-w-[160px] px-3 py-2 border rounded-md text-sm">
+        <option disabled selected>Question paper year</option>
+        <option>2024</option>
+        <option>2023</option>
+      </select>
+      <select class="flex-1 min-w-[140px] px-3 py-2 border rounded-md text-sm">
+        <option disabled selected>End Sem / Mid Term</option>
+        <option>End Sem</option>
+        <option>Mid Term</option>
+      </select>
+      <button class="flex-1 min-w-[100px] px-5 py-[6px] bg-[#1e40af] text-white rounded-md text-sm font-medium hover:bg-[#17379a]">
+        Apply
+      </button>
+      <button class="flex-1 min-w-[100px] px-5 py-[6px] 
+                bg-white border border-gray-400 text-gray-700 
+                rounded-md text-sm font-medium 
+                hover:shadow hover:border-gray-500 transition">
+        Reset
+      </button>
+    </div>
+  </section>
+
+  <!-- Cards section -->
+  <section class="mx-auto w-[1280px] max-w-full py-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <article *ngFor="let paper of [1,2,3,4]" class="bg-white rounded-md shadow hover:shadow-lg transition overflow-hidden transform hover:-translate-y-0.5 hover:scale-[1.01]">
+      <img src="assets/Images/pdf-thumb.png" class="w-full h-40 object-cover" alt="paper" />
+      <div class="p-3 bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70 text-white">
+        <h4 class="font-semibold text-sm">DBMS</h4>
+        <p class="text-[11px] leading-4">2024‑25<br />24DB2E1KJC431</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- Bottom-left About & Contact icons -->
+  <section class="fixed bottom-6 left-6 flex flex-row gap-4">
+    <a routerLink="/about"
+       class="relative group w-10 h-10 flex items-center justify-center rounded-full
+              bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70 text-white hover:opacity-90">
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 
+        1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+      </svg>
+      <span class="absolute bottom-full mb-1 hidden group-hover:inline-block bg-gray-700 text-white text-xs rounded px-2 py-1 whitespace-nowrap">
+        About Us
+      </span>
+    </a>
+    <a routerLink="/contact"
+       class="relative group w-10 h-10 flex items-center justify-center rounded-full
+              bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70 text-white hover:opacity-90">
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M21 6.5a2.5 2.5 0 0 0-2.5-2.5h-13A2.5 2.5 0 0 0 3 6.5v11a2.5 2.5 0 0 0 
+        2.5 2.5h13a2.5 2.5 0 0 0 2.5-2.5v-11zm-2 0L12 11 5 6.5V6l7 4.5L19 6v.5z"/>
+      </svg>
+      <span class="absolute bottom-full mb-1 hidden group-hover:inline-block bg-gray-700 text-white text-xs rounded px-2 py-1 whitespace-nowrap">
+        Contact Us
+      </span>
+    </a>
+  </section>
+</main>
+
+<!-- Logout Confirmation Modal -->
+
+<div *ngIf="showExitModal"
+     class="fixed inset-0 z-50 flex items-center justify-center"
+     (keydown.escape)="closeModal()"
+     tabindex="0">
+
+  <!-- Background overlay (clicking outside closes the modal) -->
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" (click)="closeModal()"></div>
+
+  <!-- Modal content -->
+  <div class="relative w-[90%] max-w-md rounded-md border-2 border-cyan-400/70
+              bg-white/80 shadow-xl backdrop-blur-lg animate-modal-in">
+    <div class="p-6 text-center">
+      <!-- Icon -->
+      <svg class="w-14 h-14 mx-auto text-black mb-3" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2a1 1 0 01.894.553l9 18A1 1 0 0121 22H3a1 1 0 01-.894-1.447l9-18A1 1 0 0112 2zm0 5a1 1 0 00-.993.883L11 8v4a1 1 0 001.993.117L13 12V8a1 1 0 00-1-1zm.002 8a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z"/>
+      </svg>
+
+      <!-- Message -->
+      <p class="text-lg font-semibold mb-6">“Are you sure you want<br />to exit this page?”</p>
+
+      <!-- Action buttons -->
+      <div class="flex justify-center gap-4">
+        <button
+          class="px-5 py-2 rounded-md border border-gray-400 text-gray-800 hover:shadow"
+          (click)="closeModal()">Cancel</button>
+
+        <button
+          class="px-6 py-2 rounded-md bg-red-600 text-white hover:bg-red-700"
+          (click)="logout()">Exit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+   
+  
