@@ -3,15 +3,15 @@
     bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70
     backdrop-blur-lg border-b border-white/10 shadow-md shadow-[#0b1e34]/40">
 
-  <div class="flex items-center gap-2">
-    <img src="assets/Images/qvault.png" class="h-40" alt="Qvault" />
-  </div>
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <img src="assets\Images\qvault.png" class="h-20 sm:h-24 md:h-32" alt="KJC Logo" />
+    </div>
 
   <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-    <img src="assets/Images/kju.png" class="h-12 md:h-16" alt="KJU" />
+    <img src="assets/Images/kju.png" class="h-10 sm:h-12 md:h-14" alt="KJU" />
   </div>
 
-  <div class="flex items-center space-x-3">
+  <div class="flex items-center space-x-2 sm:space-x-3">
     <span class="text-white">{{ email }}</span>
     <img src="assets/image.png" alt="User" class="w-8 h-8 rounded-full object-cover" />
     <div class="relative group w-6 h-6 cursor-pointer" (click)="openExitModal()">
