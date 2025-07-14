@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 interface Course {
@@ -92,5 +92,13 @@ export class StudentComponent {
 
   viewQuestionPapers(course: Course): void {
     this.router.navigate(['/questionpaper', course.id]);
+  }
+
+
+ email: string = '';
+
+  ngOnInit(): void {
+    // ✅ Get email from sessionStorage
+    this.email = sessionStorage.getItem('email') || '';
   }
 }
