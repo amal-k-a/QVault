@@ -22,14 +22,18 @@ export class QuestionPaperComponent implements OnInit {
 
   subjects: string[] = [];
   years: string[] = [];
-  types = ['Mid Term', 'End Sem'];
+  types = ['Mid Sem', 'End Sem'];
 
   allPapers: any[] = [];
   filteredPapers: any[] = [];
 
   constructor(private route: ActivatedRoute, private api: ApiService) { }
+   email: string = '';
 
   ngOnInit(): void {
+   this.email = sessionStorage.getItem('email') || '';
+  
+  
     this.route.queryParams.subscribe(params => {
       this.courseName = params['course'] || 'Selected Course';
       this.specialization = params['specialization'] || '';
@@ -43,14 +47,15 @@ export class QuestionPaperComponent implements OnInit {
         }
 
         this.allPapers = data.map((paper: any) => ({
-          subname: paper[0],        // course
-          courseid: paper[1],       // courseid
-          department: paper[2],     // department
-          coursename: paper[3],     // program
-          term: paper[4],           // term
-          year: paper[5],           // year
-          files: paper[6]           // list of binary PDFs
+          subname: paper.course,          // ✅ course
+          courseid: paper.courseid,       // ✅ courseid
+          department: paper.department,
+          coursename: paper.program,      // ✅ program
+          term: paper.term,
+          year: paper.year,
+          fileId: paper.pdfUrl            // ✅ single fileId string
         }));
+        
 
         // Extract filters
         this.subjects = [...new Set(this.allPapers.map(p => p.subname))];
@@ -76,24 +81,29 @@ export class QuestionPaperComponent implements OnInit {
   toggleFilters(): void {
     this.showFilters = !this.showFilters;
   }
-
-  applyFilters(): void {
-    this.filteredPapers = this.allPapers
-      .map(paper => ({
+applyFilters(): void {
+  this.filteredPapers = this.allPapers
+    .filter(paper =>
+      (!this.filters.subject || paper.subname === this.filters.subject) &&
+      (!this.filters.year || paper.year === this.filters.year) &&
+      (!this.filters.type || paper.term === this.filters.type)
+    )
+    .map(paper => {
+      const fileId = paper.id || ''; // ← this is the fix
+      return {
         title: `${paper.subname} - ${paper.term}`,
         year: paper.year,
         code: paper.courseid,
         subject: paper.subname,
         type: paper.term,
-        imageUrl: this.convertBinaryToBase64(paper.files?.[0]?.data)
-      }))
-      .filter(paper =>
-        (!this.filters.subject || paper.subject === this.filters.subject) &&
-        (!this.filters.year || paper.year === this.filters.year) &&
-        (!this.filters.type || paper.type === this.filters.type) &&
-        (!this.searchTerm || paper.code.toLowerCase().includes(this.searchTerm.toLowerCase()))
-      );
-  }
+        imageUrl: 'assets/10007105.png',
+        fileId: paper.fileId
+      };
+    });
+
+  console.log('Filtered Papers:', this.filteredPapers);
+}
+
 
   resetFilters(): void {
     this.filters = { subject: '', year: '', type: '' };
@@ -110,5 +120,17 @@ export class QuestionPaperComponent implements OnInit {
     }
     return 'data:application/pdf;base64,' + btoa(binaryString);
   }
+
+  openPDF(fileId: string): void {
+  console.log("Opening PDF with fileId:", fileId);
+  if (!fileId) {
+    alert("No PDF available.");
+    return;
+  }
+
+  const pdfUrl = `http://172.21.11.107:8080/pdf?id=${fileId}`;
+  window.open(pdfUrl, '_blank');
+}
+
 
 }
