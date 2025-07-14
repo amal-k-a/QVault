@@ -58,4 +58,20 @@ export class UserService {
   });
 }
   
+
+private userEmail: string = '';
+
+// ✅ Set email after login
+setEmail(email: string): void {
+  this.userEmail = email;
+  localStorage.setItem('userEmail', email); // Optional: persist across refresh
+}
+
+// ✅ Get email where needed
+getEmail(): string {
+  if (!this.userEmail) {
+    this.userEmail = localStorage.getItem('userEmail') || '';
+  }
+  return this.userEmail;
+}
 }
