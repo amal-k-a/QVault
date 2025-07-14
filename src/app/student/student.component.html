@@ -21,20 +21,22 @@
   <nav class="fixed top-0 left-0 right-0 h-20 z-20 flex items-center justify-between p-10
        bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70
        backdrop-blur-md border-b border-white/10 shadow-md shadow-[#0b1e34]/30">
-    <!-- Left: Logo -->
-    <div class="flex flex-wrap items-center justify-between gap-2">
-      <img src="assets\Images\qvault.png" class="h-32" alt="KJC Logo" />
-    </div>
-    <!-- Center: Image -->
-    <img src="assets\Images\kju.png" class="h-14" alt="Kristu Jayanti Logo" />
-    <!-- Right: Email & Avatar -->
-    <div class="flex items-center space-x-3">
-      <span class="text-white">{{ email }}</span>
-      <div class="w-8 h-8 rounded-full bg-green-700 flex items-center justify-center text-white font-semibold">
-        23
-      </div>
-    </div>
-  </nav>
+        <!-- Left: Logo -->
+        <div class="flex flex-wrap items-center justify-between gap-2">
+            <img src="assets\Images\qvault.png" class="h-32" alt="KJC Logo" />
+        </div>
+        <!-- Center: Image -->
+        <img src="assets\Images\kju.png" class="h-14" alt="Kristu Jayanti Logo" />
+        <!-- Right: Email & Avatar -->
+        <div class="flex items-center space-x-3">
+  <span class="text-white">{{ email }}</span>
+  <img 
+    src="assets/image.png" 
+    alt="User Profile" 
+    class="w-8 h-8 rounded-full object-cover"
+  />
+        </div>
+    </nav>
 
   <div class="flex pt-20 h-screen overflow-hidden absolute">
     <!-- Sidebar -->

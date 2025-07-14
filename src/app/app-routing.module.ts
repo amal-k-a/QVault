@@ -5,6 +5,9 @@ import { QuestionPaperComponent } from './student/questionpaper/questionpaper.co
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot/forgot.component';
+import { TeacherdashboardComponent } from './teacherdashboard/teacherdashboard.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 
@@ -16,7 +19,11 @@ const routes: Routes = [
   { path: 'forgot', component: ForgotPasswordComponent },
 
   { path: 'student', component: StudentComponent },
-  { path: 'questionpaper', component: QuestionPaperComponent }
+  { path: 'questionpaper', component: QuestionPaperComponent },
+   { path: 'teacherdashboard', component: TeacherdashboardComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: '**', redirectTo: '/login' }
 ];
 
 
