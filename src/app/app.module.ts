@@ -13,6 +13,9 @@ import { QuestionPaperComponent } from './student/questionpaper/questionpaper.co
 import { ForgotPasswordComponent } from './forgot/forgot.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { TeacherdashboardComponent } from './teacherdashboard/teacherdashboard.component';
+import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { RegisterComponent } from './register/register.component';
     QuestionPaperComponent,
     ForgotPasswordComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    TeacherdashboardComponent,
+    ContactComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
