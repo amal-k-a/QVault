@@ -1,21 +1,21 @@
 <!-- Navbar -->
-<nav class="fixed top-0 left-0 right-0 h-20 z-20 flex items-center justify-between p-10
-     bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70
-     backdrop-blur-md border-b border-white/10 shadow-md shadow-[#0b1e34]/30">
-    <!-- Left Logo -->
-    <div class="flex flex-wrap items-center justify-between gap-2">
-        <img src="assets/Images/qvault.png" class="h-32" alt="QVault Logo" />
-    </div>
-    <!-- Center Logo -->
-    <img src="assets/Images/kju.png" class="h-14" alt="Kristu Jayanti Logo" />
-    <!-- Right User Info -->
-    <div class="flex items-center space-x-3">
-        <span class="text-white">23bcna10&#64;gmail.com</span>
-        <div class="w-8 h-8 rounded-full bg-green-700 flex items-center justify-center text-white font-semibold">
-            A
+ <nav class="fixed top-0 left-0 right-0 h-20 z-20 flex items-center justify-between p-10
+       bg-gradient-to-r from-[#0b1e34]/70 via-[#1a2d4a]/70 to-[#10273f]/70
+       backdrop-blur-md border-b border-white/10 shadow-md shadow-[#0b1e34]/30">
+        <!-- Left: Logo -->
+        <div class="flex flex-wrap items-center justify-between gap-2">
+            <img src="assets\Images\qvault.png" class="h-32" alt="KJC Logo" />
         </div>
-    </div>
-</nav>
+        <!-- Center: Image -->
+        <img src="assets\Images\kju.png" class="h-14" alt="Kristu Jayanti Logo" />
+        <!-- Right: Email & Avatar -->
+        <div class="flex items-center space-x-3">
+            <span class="text-white">{{ email }}</span>
+            <div class="w-8 h-8 rounded-full bg-green-700 flex items-center justify-center text-white font-semibold">
+                23
+            </div>
+        </div>
+    </nav>
 
 <!-- Sidebar -->
 <div class="flex pt-20 h-screen overflow-hidden absolute">
@@ -121,15 +121,19 @@
     <!-- Papers Grid -->
     <div *ngIf="!isLoading && filteredPapers.length > 0" class="bg-[#374151] p-6 rounded-lg">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <div *ngFor="let paper of filteredPapers"
-                class="bg-white text-black rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-                <img [src]="paper.imageUrl || 'assets/Images/samplepaper.png'" alt="Paper"
-                    class="h-56 w-full object-cover rounded-t-lg" />
+            <div *ngFor="let paper of filteredPapers" (click)="openPDF(paper.fileId)"
+                class="bg-white text-black rounded-lg shadow hover:shadow-xl transition-shadow duration-300 w-48 h-48 flex flex-col justify-between items-center mx-auto">
 
-                <div class="p-4 bg-gray-200 text-center rounded-b-lg">
-                    <p class="font-semibold text-sm">{{ paper.title }}</p>
-                    <p class="text-xs">{{ paper.year }}</p>
-                    <p class="text-xs font-mono">{{ paper.code }}</p>
+                <!-- Icon Container -->
+                <div class="flex items-center justify-center flex-grow">
+                    <img [src]="'assets/10007105.png'" alt="PDF Icon" class="w-12 h-12 object-contain" />
+                </div>
+
+                <!-- Metadata -->
+                <div class="w-full p-2 bg-gray-200 text-center rounded-b-lg text-xs">
+                    <p class="font-semibold truncate">{{ paper.title }}</p>
+                    <p>{{ paper.year }}</p>
+                    <p class="font-mono">{{ paper.code }}</p>
                 </div>
             </div>
         </div>
