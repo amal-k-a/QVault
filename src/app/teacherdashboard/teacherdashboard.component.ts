@@ -222,10 +222,10 @@ confirmDelete(): void {
         this.showToast('Failed to delete the paper.');
       }
     },
-    error: (err) => {
-      this.showToast('An error occurred during deletion.');
-      console.error(err);
-    }
+    // error: (err) => {
+    //   this.showToast('An error occurred during deletion.');
+    //   console.error(err);
+    // }
   });
 }
 
