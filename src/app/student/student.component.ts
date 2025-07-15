@@ -112,4 +112,8 @@ export class StudentComponent {
   cancelLogout(): void {
     this.showLogoutModal = false;
   }
+  showLogout(): void {
+    this.showLogoutModal = true;
+  }
+
 }
